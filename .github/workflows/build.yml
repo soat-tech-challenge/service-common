@@ -1,0 +1,14 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    uses: soat-tech-challenge/github-workflows/.github/workflows/maven-bump-push-dockerhub.yml@main
+    secrets: inherit
+    with:
+      docker: false
