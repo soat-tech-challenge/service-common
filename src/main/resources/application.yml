@@ -1,0 +1,4 @@
+jwt:
+  token:
+    key:
+      public: "${JWT_PUBLIC_KEY}"
