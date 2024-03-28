@@ -23,7 +23,10 @@ public abstract class AbstractAPIController {
 
     @ExceptionHandler
     public ResponseEntity<DefaultResponseDTO> handleException(Exception exception) {
+
+        System.err.println("AbstractAPIController is handling expection:" + exception.getMessage());
         exception.printStackTrace();
+
         DefaultResponseDTO responseDTO = new DefaultResponseDTO(
                 messageSource.getMessage("default.title.unknownError", null, LocaleContextHolder.getLocale()),
                 messageSource.getMessage("default.title.unknownError.description", null, LocaleContextHolder.getLocale()));
