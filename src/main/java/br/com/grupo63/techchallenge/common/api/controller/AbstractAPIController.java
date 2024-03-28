@@ -4,6 +4,8 @@ import br.com.grupo63.techchallenge.common.api.controller.dto.DefaultResponseDTO
 import br.com.grupo63.techchallenge.common.exception.GenericException;
 import br.com.grupo63.techchallenge.common.exception.NotFoundException;
 import br.com.grupo63.techchallenge.common.exception.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -21,10 +23,11 @@ public abstract class AbstractAPIController {
     @Autowired
     private MessageSource messageSource;
 
+    private static final Logger logger = LoggerFactory.getLogger(AbstractAPIController.class);
+
     @ExceptionHandler
     public ResponseEntity<DefaultResponseDTO> handleException(Exception exception) {
-
-        System.err.println("AbstractAPIController is handling expection:" + exception.getMessage());
+        logger.warn("AbstractAPIController caught exception:");
         exception.printStackTrace();
 
         DefaultResponseDTO responseDTO = new DefaultResponseDTO(

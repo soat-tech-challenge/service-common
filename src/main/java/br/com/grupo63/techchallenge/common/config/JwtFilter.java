@@ -16,22 +16,30 @@ import java.security.GeneralSecurityException;
 public class JwtFilter implements Filter {
 
     private final JwtService jwtService;
+    private static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         try {
             String authHeader = ((HttpServletRequest) request).getHeader("Authorization");
+            log.debug("Auth header: {}", authHeader);
+
             if (!StringUtils.hasLength(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, "Bearer ")) {
                 throw new GeneralSecurityException("Missing or invalid authorization header");
             }
+
             String jwt = authHeader.substring(7);
             Claims claims = jwtService.getClaims(jwt);
             request.setAttribute("clientId", claims.get("sub"));
+
             filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Unauthorized: Missing or incorrect JWT Token.");
+        } catch (GeneralSecurityException e) {
+            log.info("Unauthorized: {}", e.getMessage());
+            response.getWriter().write("Unauthorized: Missing or incorrect JWT token.");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("Unexpected error during JWT filter");
         }
     }
 }
-
