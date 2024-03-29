@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.common.config;
+package br.com.grupo63.techchallenge.common.config.aws.ecs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.info.Info;

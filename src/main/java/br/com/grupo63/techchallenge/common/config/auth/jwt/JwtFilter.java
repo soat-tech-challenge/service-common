@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.common.config;
+package br.com.grupo63.techchallenge.common.config.auth.jwt;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
