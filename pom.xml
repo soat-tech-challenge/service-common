@@ -18,7 +18,7 @@
       </plugin>
     </plugins>
   </build>
-  <version>5.1.1</version>
+  <version>5.1.2</version>
   <url>http://maven.apache.org</url>
   <name>service-common</name>
   <description>FIAP SOAT1 2023 - Group 63 - Common files</description>
