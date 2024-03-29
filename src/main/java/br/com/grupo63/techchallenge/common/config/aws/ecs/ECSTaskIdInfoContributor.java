@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class ECSTaskIdInfoContributor implements InfoContributor {
 
-    @Value("${info.ecs_metadata_url_v4:unknown}")
+    @Value("${app.ecs_metadata_url_v4:unknown}")
     String ecsMetadataUrlV4;
 
     @Override
